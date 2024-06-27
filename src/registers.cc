@@ -1,4 +1,4 @@
-#include "remu_registers.h"
+#include "registers.h"
 
 template<> 
 std::ostream& REMU::RISCV::operator<<(std::ostream& os, REMU::RISCV::RegistersE r) {

@@ -1,5 +1,5 @@
 #include <iostream>
-#include<remu_registers.h>
+#include<registers.h>
 #include<riscv.h>
 
 using std::cout, std::endl;
