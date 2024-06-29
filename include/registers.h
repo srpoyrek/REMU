@@ -1,139 +1,67 @@
 #pragma once
 #include <cstdint>
+#include<array>
 #include <ostream>
 
 namespace REMU {
     namespace RISCV {
+
         using std::uint32_t;
+        using std::array;
 
-        typedef uint32_t Registers32bit;
-        typedef uint64_t Registers64bit;
+        typedef uint32_t Registers32bit_t;
+        typedef uint64_t Registers64bit_t;
 
-        enum class RegistersE : Registers32bit {
-            x0 = 0,
-            x1,
-            x2,
-            x3,
-            x4,
-            x5,
-            x6,
-            x7,
-            x8,
-            x9,
-            x10,
-            x11,
-            x12,
-            x13,
-            x14,
-            x15,
-            r16_max
+        enum class RegisterNum_t : Registers32bit_t {
+            X0 = 0,
+            X1,
+            X2,
+            X3,
+            X4,
+            X5,
+            X6,
+            X7,
+            X8,
+            X9,
+            X10,
+            X11,
+            X12,
+            X13,
+            X14,
+            X15,
+            X16,
+            X17,
+            X18,
+            X19,
+            X20,
+            X21,
+            X22,
+            X23,
+            X24,
+            X25,
+            X26,
+            X27,
+            X28,
+            X29,
+            X30,
+            X31,
+            X32_MAX
+        };
+        
+        constexpr size_t  NUM_REGISTERS16 = static_cast<size_t>(RegisterNum_t::X16);
+        constexpr size_t  NUM_REGISTERS32 = static_cast<size_t>(RegisterNum_t::X32_MAX);
+
+        constexpr Registers32bit_t DEFAULT_REGISTER32_VALUE =  0xFFFFFFFF;
+        constexpr Registers64bit_t DEFAULT_REGISTER64_VALUE =  0xFFFFFFFFFFFFFFFF;
+
+        union RegisterMemory_t {
+            array<Registers32bit_t, NUM_REGISTERS16> r16;
+            array<Registers32bit_t, NUM_REGISTERS32> r32;
+            array<Registers64bit_t, NUM_REGISTERS32> r64;
         };
 
-        enum class Registers32I : Registers32bit {
-            x0 = 0,
-            x1,
-            x2,
-            x3,
-            x4,
-            x5,
-            x6,
-            x7,
-            x8,
-            x9,
-            x10,
-            x11,
-            x12,
-            x13,
-            x14,
-            x15,
-            x16,
-            x17,
-            x18,
-            x19,
-            x20,
-            x21,
-            x22,
-            x23,
-            x24,
-            x25,
-            x26,
-            x27,
-            x28,
-            x29,
-            x30,
-            x31,
-            r32_max
-        };
+        std::ostream& operator<<(std::ostream& os, REMU::RISCV::RegisterNum_t r);
 
-        enum class Registers64I : Registers64bit {
-            x0 = 0,
-            x1,
-            x2,
-            x3,
-            x4,
-            x5,
-            x6,
-            x7,
-            x8,
-            x9,
-            x10,
-            x11,
-            x12,
-            x13,
-            x14,
-            x15,
-            x16,
-            x17,
-            x18,
-            x19,
-            x20,
-            x21,
-            x22,
-            x23,
-            x24,
-            x25,
-            x26,
-            x27,
-            x28,
-            x29,
-            x30,
-            x31,
-            x32,
-            x33,
-            x34,
-            x35,
-            x36,
-            x37,
-            x38,
-            x39,
-            x40,
-            x41,
-            x42,
-            x43,
-            x44,
-            x45,
-            x46,
-            x47,
-            x48,
-            x49,
-            x50,
-            x51,
-            x52,
-            x53,
-            x54,
-            x56,
-            x57,
-            x58,
-            x59,
-            x60,
-            x61,
-            x62,
-            x63,
-            r64_max
-        };
-
-        template<typename S, typename T>
-        S& operator<<(S &os, T r);
     };
     
 };
