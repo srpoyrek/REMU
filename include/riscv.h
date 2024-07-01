@@ -19,10 +19,7 @@ namespace REMU {
                 E() = default;
                 virtual void init(void);                
                 virtual void print_registers(void);
-                const RegisterMemory_t& getRegisters(void) const { return Registers; };
-
-                template<typename T, size_t size, typename R>
-                friend std::ostream& REMU::RISCV::operator<<(std::ostream& os, array<T, size> const& r);
+                const RegisterMemory_t & getRegisters(void) const { return Registers; };
         };
 
         class I32 : public E {

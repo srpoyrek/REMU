@@ -11,6 +11,8 @@ namespace REMU {
             B_Format_t B;
             U_Format_t U;
             J_Format_t J;
+            FMT_t inst_op;
+            uint32_t inst;
         };
 
     };

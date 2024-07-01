@@ -12,7 +12,6 @@ void REMU::RISCV::E::display_registers(array<T, size> const& r, R const &) {
     return;                                     
 }
 
-
 // cores init 
 void REMU::RISCV::E::init(void) {
     std::fill(begin(Registers.r16), end(Registers.r16), DEFAULT_REGISTER32_VALUE);
