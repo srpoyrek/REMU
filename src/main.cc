@@ -5,7 +5,6 @@
 using std::cout, std::endl;
 
 
-
 int main() {
     
     cout << "Hello from REMU: a RISC-V Simulator" << endl;

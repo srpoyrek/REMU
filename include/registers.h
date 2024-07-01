@@ -16,9 +16,18 @@ namespace REMU {
         constexpr size_t REGISTER_64_BIT_LEN = static_cast<size_t>(__CHAR_BIT__ * sizeof(uint64_t));
         constexpr size_t REGISTER_128_BIT_LEN = static_cast<size_t>(__CHAR_BIT__ * 2 * sizeof(uint64_t));
 
-        typedef bitset<REGISTER_32_BIT_LEN> Registers32bit_t;
-        typedef bitset<REGISTER_64_BIT_LEN> Registers64bit_t;
-        typedef bitset<REGISTER_128_BIT_LEN> Registers128bit_t;
+        typedef array<uint64_t, sizeof(uint64_t)> uint128_t;
+
+        template<typename T, size_t S>
+        union RegisterAccess_t {
+            bitset<S> bits;
+            T all;
+            RegisterAccess_t(T _all) : all(_all) {};
+        };
+
+        typedef RegisterAccess_t<uint32_t, REGISTER_32_BIT_LEN> RegisterAccess32Bit_t;
+        typedef RegisterAccess_t<uint64_t, REGISTER_64_BIT_LEN> RegisterAccess64Bit_t;
+        typedef RegisterAccess_t<uint128_t, REGISTER_128_BIT_LEN> RegisterAccess128Bit_t;
 
         enum class RegisterLength_t: uint8_t {
             RL16 = 16U,
@@ -70,45 +79,32 @@ namespace REMU {
         const size_t  NUM_REGISTERS16 = static_cast<size_t>(RegisterLength_t::RL16);
         const size_t  NUM_REGISTERS32 = static_cast<size_t>(RegisterLength_t::RL32);
 
-        const Registers32bit_t DEFAULT_REGISTER32_VALUE {0xFFFFFFFF};
-        const Registers64bit_t DEFAULT_REGISTER64_VALUE {0xFFFFFFFFFFFFFFFF};
-        const Registers128bit_t DEFAULT_REGISTER128_VALUE = std::bitset<REGISTER_128_BIT_LEN>(std::string("1").assign(REGISTER_128_BIT_LEN, '1'));
-
+        const RegisterAccess32Bit_t DEFAULT_REG_32_VALUE({0xFFFFFFFF});
+        const RegisterAccess64Bit_t DEFAULT_REG_64_VALUE(0xFFFFFFFFFFFFFFFF);
+        const RegisterAccess128Bit_t DEFAULT_REG_128_VALUE({0xFFFFFFFFFFFFFFFF, 0xFFFFFFFFFFFFFFFF});
 
         struct RegisterMemory_t {
             RegisterLength_t XLen;
             RegisterSize_t XSize;
             union MEM_t {
-                array<Registers32bit_t, NUM_REGISTERS16> rv32E;
-                array<Registers32bit_t, NUM_REGISTERS32> rv32I;
-                array<Registers64bit_t, NUM_REGISTERS32> rv64I;
-                array<Registers128bit_t, NUM_REGISTERS32> rv128I;
-
-               
-
-                MEM_t() {
-                    fill(begin(rv32E), end(rv32E), DEFAULT_REGISTER32_VALUE);
-                    fill(begin(rv32I), end(rv32I), DEFAULT_REGISTER32_VALUE);
-                    fill(begin(rv64I), end(rv64I), DEFAULT_REGISTER64_VALUE);
-                    fill(begin(rv128I), end(rv128I), DEFAULT_REGISTER128_VALUE);
-                    return;
-                };
-
+                array<RegisterAccess32Bit_t, NUM_REGISTERS16> rv32E;
+                array<RegisterAccess32Bit_t, NUM_REGISTERS32> rv32I;
+                array<RegisterAccess64Bit_t, NUM_REGISTERS32> rv64I;
+                array<RegisterAccess128Bit_t, NUM_REGISTERS32> rv128I;
+                MEM_t() {};
             } MEM;
+
             RegisterSize_t getSize(void) const  {return XSize;};
             RegisterLength_t getLength(void) const  {return XLen;};
             const MEM_t & getMem(void) {return MEM;};
             
-            RegisterMemory_t(RegisterLength_t xlen, RegisterSize_t xsize) : XLen(xlen), XSize(xsize) {};
+            RegisterMemory_t(RegisterLength_t xlen, RegisterSize_t xsize);
         };
 
         std::ostream& operator<<(std::ostream& os, REMU::RISCV::RegisterMemory_t r);
         
-        std::ostream& operator<<(std::ostream& os, const array<Registers32bit_t, NUM_REGISTERS16>& m);
-        std::ostream& operator<<(std::ostream& os, const array<Registers32bit_t, NUM_REGISTERS32>& m);
-        std::ostream& operator<<(std::ostream& os, const array<Registers64bit_t, NUM_REGISTERS32>& m);
-        std::ostream& operator<<(std::ostream& os, const array<Registers128bit_t, NUM_REGISTERS32>& m);
-        
+        template<typename T, size_t S>
+        std::ostream& operator<<(std::ostream& os, const array<T, S>& m);
     };
     
 };
