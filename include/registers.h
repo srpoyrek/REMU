@@ -12,9 +12,9 @@ namespace REMU {
         using std::bitset;
 
         
-        constexpr size_t REGISTER_32_BIT_LEN = static_cast<size_t>(__CHAR_BIT__ * sizeof(uint32_t));
-        constexpr size_t REGISTER_64_BIT_LEN = static_cast<size_t>(__CHAR_BIT__ * sizeof(uint64_t));
-        constexpr size_t REGISTER_128_BIT_LEN = static_cast<size_t>(__CHAR_BIT__ * 2 * sizeof(uint64_t));
+        constexpr const size_t REGISTER_32_BIT_LEN = static_cast<size_t>(__CHAR_BIT__ * sizeof(uint32_t));
+        constexpr const size_t REGISTER_64_BIT_LEN = static_cast<size_t>(__CHAR_BIT__ * sizeof(uint64_t));
+        constexpr const size_t REGISTER_128_BIT_LEN = static_cast<size_t>(__CHAR_BIT__ * 2 * sizeof(uint64_t));
 
         typedef array<uint64_t, sizeof(uint64_t)> uint128_t;
 
@@ -76,8 +76,8 @@ namespace REMU {
             X32_MAX = 32,
         };
         
-        const size_t  NUM_REGISTERS16 = static_cast<size_t>(RegisterLength_t::RL16);
-        const size_t  NUM_REGISTERS32 = static_cast<size_t>(RegisterLength_t::RL32);
+        constexpr const size_t  NUM_REGISTERS16 = static_cast<size_t>(RegisterLength_t::RL16);
+        constexpr const size_t  NUM_REGISTERS32 = static_cast<size_t>(RegisterLength_t::RL32);
 
         const RegisterAccess32Bit_t DEFAULT_REG_32_VALUE({0xFFFFFFFF});
         const RegisterAccess64Bit_t DEFAULT_REG_64_VALUE(0xFFFFFFFFFFFFFFFF);

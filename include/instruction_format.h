@@ -26,8 +26,6 @@ namespace REMU {
             SYSTEM      = 0b1110011, // system
         };
 
-
-
         enum class OP_Funct3_t : uint32_t {
             ADD_SUB = 0x0,
             SLL     = 0x1,
@@ -74,26 +72,26 @@ namespace REMU {
             EBREAK    = 0x0,
         };
 
-        constexpr int OPCODE_BITS = 7;
-        constexpr int REG_BITS = 5;
-        constexpr int FUNCT3_BITS = 3;
-        constexpr int FUNCT7_BITS = 7;
+        constexpr const size_t OPCODE_BITS = 7;
+        constexpr const size_t REG_BITS = 5;
+        constexpr const size_t FUNCT3_BITS = 3;
+        constexpr const size_t FUNCT7_BITS = 7;
 
-        constexpr int IMM4_0_BITS = 5;
-        constexpr int IMM4_1_BITS = 4;
-        constexpr int IMM10_5_BITS = 6;
-        constexpr int IMM11_0_BITS = 12;
-        constexpr int IMM11_5_BITS = 7;
+        constexpr const size_t IMM4_0_BITS = 5;
+        constexpr const size_t IMM4_1_BITS = 4;
+        constexpr const size_t IMM10_5_BITS = 6;
+        constexpr const size_t IMM11_0_BITS = 12;
+        constexpr const size_t IMM11_5_BITS = 7;
 
-        constexpr int IMM31_12_BITS = 20;
-        constexpr int IMM19_12_BITS = 8;
-        constexpr int IMM10_1_BITS = 10;
+        constexpr const size_t IMM31_12_BITS = 20;
+        constexpr const size_t IMM19_12_BITS = 8;
+        constexpr const size_t IMM10_1_BITS = 10;
 
-        constexpr int IMM20_BITS = 1;
-        constexpr int IMM11_BITS = 1;
-        constexpr int IMM12_BITS = 1;
+        constexpr const size_t IMM20_BITS = 1;
+        constexpr const size_t IMM11_BITS = 1;
+        constexpr const size_t IMM12_BITS = 1;
         
-        constexpr int OTHER_BITS = (sizeof(uint32_t) * __CHAR_BIT__) - OPCODE_BITS;
+        constexpr const size_t OTHER_BITS = (sizeof(uint32_t) * __CHAR_BIT__) - OPCODE_BITS;
 
         struct R_Format_t{
             bitset<OPCODE_BITS> opcode;
