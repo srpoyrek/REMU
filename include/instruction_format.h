@@ -153,22 +153,22 @@ namespace REMU {
         };
 
 
-        enum class Base_Instruction_Class: uint32_t {
+        enum class BaseInstructionClass: uint32_t {
             RV32E,
             RV32I,
             RV64I,
             RV128I,
         };
 
-        enum class Extension_Instruction_Class: uint32_t {
-            M_STANDARD,
-            A_STANDARD,
-            F_STANDARD,
-            D_STANDARD,
-            Q_STANDARD,
-            L_STANDARD,
-            C_STANDARD,
-            B_STANDARD,
+        enum class InstructionExtension: uint32_t {
+            M,
+            A,
+            F,
+            D,
+            Q,
+            L,
+            C,
+            B,
         };
 
     };

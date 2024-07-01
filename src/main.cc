@@ -4,23 +4,41 @@
 
 using std::cout, std::endl;
 
-REMU::RISCV::E e_core;
-REMU::RISCV::I32 i32_core;
-REMU::RISCV::I64 i64_core;
 
 
 int main() {
     
     cout << "Hello from REMU: a RISC-V Simulator" << endl;
-    // init cores
-    e_core.init();
-    i32_core.init();
-    i64_core.init();
+    
+    REMU::RISCV::CORE RV32E(
+        REMU::RISCV::BaseInstructionClass::RV32E,
+        REMU::RISCV::RegisterLength_t::RL16,
+        REMU::RISCV::RegisterSize_t::RS32
+    );
 
-    // print registers
-    e_core.print_registers();
-    i32_core.print_registers();
-    i64_core.print_registers();
+    REMU::RISCV::CORE RV32I(
+        REMU::RISCV::BaseInstructionClass::RV32I,
+        REMU::RISCV::RegisterLength_t::RL32,
+        REMU::RISCV::RegisterSize_t::RS32
+    );
+
+    REMU::RISCV::CORE RV64I(
+        REMU::RISCV::BaseInstructionClass::RV64I,
+        REMU::RISCV::RegisterLength_t::RL32,
+        REMU::RISCV::RegisterSize_t::RS64
+    );
+
+    REMU::RISCV::CORE RV128I(
+        REMU::RISCV::BaseInstructionClass::RV64I,
+        REMU::RISCV::RegisterLength_t::RL32,
+        REMU::RISCV::RegisterSize_t::RS128
+    );
+    
+    
+    RV32E.initialize();
+    RV32I.initialize();
+    RV64I.initialize();
+    RV128I.initialize();
 
     return 0;
 }

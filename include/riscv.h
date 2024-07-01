@@ -1,6 +1,7 @@
 #pragma once
 #include<array>
-#include"registers.h"
+#include<registers.h>
+#include<instruction_format.h>
 #include<iostream>
 
 namespace REMU {
@@ -9,31 +10,17 @@ namespace REMU {
         using std::array;
         using std::cout;
 
-        class E {
+        class CORE {
+            private:
             protected:
+                BaseInstructionClass BaseInstClass;
                 RegisterMemory_t Registers;
-                template<typename T, size_t size, typename R>
-                void display_registers(array<T, size> const& r, R const &);
+                RegisterLength_t XLen;
 
             public:
-                E() = default;
-                virtual void init(void);                
-                virtual void print_registers(void);
-                const RegisterMemory_t & getRegisters(void) const { return Registers; };
-        };
-
-        class I32 : public E {
-            public:
-                I32() = default;
-                virtual void init(void);
-                virtual void print_registers(void);
-        };
-
-        class I64 : public I32 {
-            public:
-                I64() = default;
-                virtual void init(void);
-                virtual void print_registers(void);
+                CORE(BaseInstructionClass base_ins_class, RegisterLength_t xlen, RegisterSize_t xsize) 
+                : BaseInstClass(base_ins_class), Registers(RegisterMemory_t(xlen, xsize)) {};
+                void initialize(void);
         };
 
     };
