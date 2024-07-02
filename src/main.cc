@@ -1,6 +1,8 @@
 #include <iostream>
 #include<registers.h>
 #include<riscv.h>
+#include<instructions.h>
+
 
 using std::cout, std::endl;
 
@@ -38,6 +40,7 @@ int main() {
     RV32I.initialize();
     RV64I.initialize();
     RV128I.initialize();
+
 
     return 0;
 }

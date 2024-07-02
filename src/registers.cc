@@ -61,16 +61,16 @@ std::ostream &REMU::RISCV::operator<<(std::ostream &os, REMU::RISCV::RegisterMem
 REMU::RISCV::RegisterMemory_t::RegisterMemory_t(RegisterLength_t xlen, RegisterSize_t xsize) : XLen(xlen), XSize(xsize) {
     if(xlen == RegisterLength_t::RL16 && xsize== RegisterSize_t::RS32 ) {
         // E
-        std::fill(begin(MEM.rv32E), end(MEM.rv32E), DEFAULT_REG_32_VALUE);
+        std::fill(begin(Memory.rv32E), end(Memory.rv32E), DEFAULT_REG_32_VALUE);
     } else if(xlen == RegisterLength_t::RL32 && xsize == RegisterSize_t::RS32) {
         // 32I
-        std::fill(begin(MEM.rv32I), end(MEM.rv32I), DEFAULT_REG_32_VALUE);
+        std::fill(begin(Memory.rv32I), end(Memory.rv32I), DEFAULT_REG_32_VALUE);
     } else if( xlen == RegisterLength_t::RL32 && xsize == RegisterSize_t::RS64) {
         //64I
-        std::fill(begin(MEM.rv64I), end(MEM.rv64I), DEFAULT_REG_64_VALUE);
+        std::fill(begin(Memory.rv64I), end(Memory.rv64I), DEFAULT_REG_64_VALUE);
     } else if(xlen == RegisterLength_t::RL32 && xsize == RegisterSize_t::RS128) {
         //128I
-        std::fill(begin(MEM.rv128I), end(MEM.rv128I), DEFAULT_REG_128_VALUE);
+        std::fill(begin(Memory.rv128I), end(Memory.rv128I), DEFAULT_REG_128_VALUE);
     }
     return;
 };

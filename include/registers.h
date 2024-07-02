@@ -83,20 +83,22 @@ namespace REMU {
         const RegisterAccess64Bit_t DEFAULT_REG_64_VALUE(0xFFFFFFFFFFFFFFFF);
         const RegisterAccess128Bit_t DEFAULT_REG_128_VALUE({0xFFFFFFFFFFFFFFFF, 0xFFFFFFFFFFFFFFFF});
 
-        struct RegisterMemory_t {
-            RegisterLength_t XLen;
-            RegisterSize_t XSize;
-            union MEM_t {
+        typedef union MEM_t {
                 array<RegisterAccess32Bit_t, NUM_REGISTERS16> rv32E;
                 array<RegisterAccess32Bit_t, NUM_REGISTERS32> rv32I;
                 array<RegisterAccess64Bit_t, NUM_REGISTERS32> rv64I;
                 array<RegisterAccess128Bit_t, NUM_REGISTERS32> rv128I;
-                MEM_t() {};
-            } MEM;
+                MEM_t () {};
+        } MEM_t;
 
+        struct RegisterMemory_t {
+            RegisterLength_t XLen;
+            RegisterSize_t XSize;
+            MEM_t Memory;
+            
             RegisterSize_t getSize(void) const  {return XSize;};
             RegisterLength_t getLength(void) const  {return XLen;};
-            const MEM_t & getMem(void) {return MEM;};
+            MEM_t & getMem(void) {return Memory;};
             
             RegisterMemory_t(RegisterLength_t xlen, RegisterSize_t xsize);
         };
@@ -105,6 +107,7 @@ namespace REMU {
         
         template<typename T, size_t S>
         std::ostream& operator<<(std::ostream& os, const array<T, S>& m);
+    
     };
     
 };

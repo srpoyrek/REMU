@@ -2,6 +2,7 @@
 #include<array>
 #include<registers.h>
 #include<instruction_format.h>
+#include<instructions.h>
 #include<iostream>
 
 namespace REMU {
@@ -21,6 +22,7 @@ namespace REMU {
                 CORE(BaseInstructionClass base_ins_class, RegisterLength_t xlen, RegisterSize_t xsize) 
                 : BaseInstClass(base_ins_class), Registers(RegisterMemory_t(xlen, xsize)) {};
                 void initialize(void);
+                void execute(Instruction_t const & i);
         };
 
     };
